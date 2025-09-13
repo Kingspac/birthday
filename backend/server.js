@@ -9,8 +9,7 @@ const app = express();
 // ✅ Environment variables
 const port = https://birthdayp.onrender.com;
 const mongoURI = process.env.MONGODB_URI;
-const frontendUrl = process.env.FRONTEND_URL || "
-https://birthday-wish-ghd9.onrender.com"
+const frontendUrl =  "https://birthday-wish-ghd9.onrender.com";
 // ✅ Check if MongoDB URI exists
 if (!mongoURI) {
   console.error("❌ Error: MONGODB_URI environment variable is not set!");
