@@ -7,7 +7,7 @@ const Message = require('./model/Message');
 const app = express();
 
 // ✅ Environment variables
-const port = process.env.PORT || 4000;
+const port = https://birthdayp.onrender.com;
 const mongoURI = process.env.MONGODB_URI;
 const frontendUrl = process.env.FRONTEND_URL || "https://birthday-wish-gkch.onrender.com";
 
