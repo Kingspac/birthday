@@ -14,8 +14,7 @@ const images = [
   "/images/22.jpg", "/images/23.jpg",
 ];
 
-const API_URL =
-  process.env.REACT_APP_API_URL || "https://birthdayp.onrender.com"
+const API_URL = "https://birthdayp.onrender.com"
 
 export default function App() {
   const [bgImage, setBgImage] = useState(images[0]);
