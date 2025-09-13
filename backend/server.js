@@ -9,7 +9,6 @@ const app = express();
 // ✅ Environment variables
 const port = 4000;
 const mongoURI = mongodb+srv://spac:00134679@cluster0.skilhfa.mongodb.net/birthdayDB?retryWrites=true&w=majority&appName=Cluster0
-const frontendUrl =  "https://birthday-wish-ghd9.onrender.com";
 // ✅ Check if MongoDB URI exists
 if (!mongoURI) {
   console.error("❌ Error: MONGODB_URI environment variable is not set!");
@@ -18,7 +17,7 @@ if (!mongoURI) {
 
 // ✅ Middleware
 app.use(cors({
-  origin: frontendUrl,
+  origin:"https://birthday-wish-ghd9.onrender.com/" ,
   credentials: true,
 }));
 app.use(express.json());
