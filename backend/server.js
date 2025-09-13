@@ -1,4 +1,4 @@
-const dotenv = require('dotenv').config();
+7Lconst dotenv = require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
@@ -7,8 +7,8 @@ const Message = require('./model/Message');
 const app = express();
 
 // ✅ Environment variables
-const port = https://birthdayp.onrender.com;
-const mongoURI = process.env.MONGODB_URI;
+const port = 4000;
+const mongoURI = mongodb+srv://spac:00134679@cluster0.skilhfa.mongodb.net/birthdayDB?retryWrites=true&w=majority&appName=Cluster0
 const frontendUrl =  "https://birthday-wish-ghd9.onrender.com";
 // ✅ Check if MongoDB URI exists
 if (!mongoURI) {
