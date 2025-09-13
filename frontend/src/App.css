@@ -97,7 +97,7 @@ button[type="submit"] {
 
 .message-card {
   background: linear-gradient(135deg, rgba(255, 105, 180, 0.2), rgba(255, 255, 255, 0.1));
-  padding: 5px;
+  padding: 0;
   margin: 10px 0;
   border-radius: 8px;
   color: #fff;
@@ -107,9 +107,13 @@ button[type="submit"] {
 }
 .message-card h2{
   text-align: center;
+  margin:0;
+  padding:0
 }
 `message-card p{
   font-family: fantasy;
+  margin:0;
+  padding:0
 }
 .feedback-message {
   background: linear-gradient(90deg, #ffe6f0, #ffd6e8);
