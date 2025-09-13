@@ -15,7 +15,7 @@ const images = [
 ];
 
 const API_URL =
-  process.env.REACT_APP_API_URL || "http://localhost:4000"; // fallback for dev
+  process.env.REACT_APP_API_URL || "https://birthday-wish-ghd9.onrender.com"
 
 export default function App() {
   const [bgImage, setBgImage] = useState(images[0]);
