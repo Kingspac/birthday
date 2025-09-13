@@ -1,4 +1,4 @@
-7Lconst dotenv = require('dotenv').config();
+const dotenv = require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
@@ -7,8 +7,10 @@ const Message = require('./model/Message');
 const app = express();
 
 // ✅ Environment variables
-const port = 4000;
-const mongoURI = mongodb+srv://spac:00134679@cluster0.skilhfa.mongodb.net/birthdayDB?retryWrites=true&w=majority&appName=Cluster0
+const port = process.env.PORT || 4000;
+const mongoURI = process.env.MONGODB_URI;
+const frontendUrl = process.env.FRONTEND_URL || "https://birthday-wish-ghd9.onrender.com";
+
 // ✅ Check if MongoDB URI exists
 if (!mongoURI) {
   console.error("❌ Error: MONGODB_URI environment variable is not set!");
@@ -17,7 +19,7 @@ if (!mongoURI) {
 
 // ✅ Middleware
 app.use(cors({
-  origin:"https://birthday-wish-ghd9.onrender.com/" ,
+  origin: frontendUrl,
   credentials: true,
 }));
 app.use(express.json());
