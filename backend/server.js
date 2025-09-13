@@ -6,7 +6,8 @@ const mongoose = require('mongoose');
 // Environment variables
 const port = process.env.PORT || 4000;
 const mongoURI = process.env.MONGODB_URI;
-const frontendUrl = process.env.FRONTEND_URL || 'http:                  
+const frontendUrl = process.env.FRONTEND_URL || 
+  "https://birthday-wish-gkch.onrender.com/"                
 
 const app = express();
 
@@ -22,7 +23,6 @@ mongoose.connect(mongoURI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
-mongoose.connection.on('//localhost:3000';
 
 const app = express();
 
@@ -49,7 +49,7 @@ app.get("/messages", async (req, res) => {
     const messages = await Message.find().sort({ createdAt: -1 });
     res.json(messages);
   } catch (err) {
-    console.error('// API Routes
+    console.error("/ API Routes")}
 
 // Get all messages
 app.get("/messages", async (req, res) => {
