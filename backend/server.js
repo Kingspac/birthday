@@ -1,55 +1,47 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const Message = require("./model/Message");
 const mongoose = require('mongoose');
+const Message = require('./model/Message');
 
-// Environment variables
+const app = express();
+
+// ✅ Environment variables
 const port = process.env.PORT || 4000;
 const mongoURI = process.env.MONGODB_URI;
-const frontendUrl = process.env.FRONTEND_URL || 
-  "https://birthday-wish-gkch.onrender.com/"                
+const frontendUrl = process.env.FRONTEND_URL || "https://birthday-wish-gkch.onrender.com";
 
-const app = express();
+// ✅ Check if MongoDB URI exists
+if (!mongoURI) {
+  console.error("❌ Error: MONGODB_URI environment variable is not set!");
+  process.exit(1);
+}
 
-             
+// ✅ Middleware
 app.use(cors({
-  credentials: true,
   origin: frontendUrl,
+  credentials: true,
 }));
 app.use(express.json());
 
-                     
+// ✅ Connect to MongoDB
 mongoose.connect(mongoURI, {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
 });
 
-const app = express();
-
-// Middleware
-app.use(cors({
-  credentials: true,
-  origin: frontendUrl,
-}));
-app.use(express.json());
-
-// MongoDB connection
-mongoose.connect(mongoURI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
+mongoose.connection.on('connected', () => {
+  console.log("✅ Connected to MongoDB");
 });
-mongoose.connection.on('connected', () => console.log('Connected to MongoDB'));
-mongoose.connection.on('error', (err) => console.error('MongoDB error', err));
 
-             
+mongoose.connection.on('error', (err) => {
+  console.error("❌ MongoDB connection error:", err);
+});
 
-                   
-app.get("/messages", async (req, res) => {
-  try {
-    const messages = await Message.find().sort({ createdAt: -1 });
-    res.json(messages);
-  } catch (err) {
-    console.error("/ API Routes")}
+// ✅ Routes
+app.get("/", (req, res) => {
+  res.send("🎉 Birthday API is running!");
+});
 
 // Get all messages
 app.get("/messages", async (req, res) => {
@@ -57,37 +49,28 @@ app.get("/messages", async (req, res) => {
     const messages = await Message.find().sort({ createdAt: -1 });
     res.json(messages);
   } catch (err) {
-    console.error('Error fetching messages:', err);
+    console.error("❌ Error fetching messages:", err);
     res.status(500).json({ error: "Failed to fetch messages" });
   }
 });
 
-                     
+// Post a new message
 app.post("/messages", async (req, res) => {
   try {
     const { name, message } = req.body;
     if (!name || !message) {
       return res.status(400).json({ error: "Name and message are required" });
     }
+
     const newMsg = await Message.create({ name, message });
     res.json(newMsg);
   } catch (err) {
-    console.error('// Post a new message
-app.post("/messages", async (req, res) => {
-  try {
-    const { name, message } = req.body;
-    if (!name || !message) {
-      return res.status(400).json({ error: "Name and message are required" });
-    }
-    const newMsg = await Message.create({ name, message });
-    res.json(newMsg);
-  } catch (err) {
-    console.error('Error posting message:', err);
+    console.error("❌ Error posting message:", err);
     res.status(500).json({ error: "Failed to post message" });
   }
 });
 
-// Server startup
+// ✅ Start server
 app.listen(port, () => {
-  console.log(`Server listening on port ${port}`);
+  console.log(`🚀 Server running on port ${port}`);
 });
