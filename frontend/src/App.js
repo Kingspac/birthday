@@ -4,32 +4,18 @@ import Confetti from "react-confetti";
 import "./App.css";
 
 const images = [
-  "/images/2.jpg",
-  "/images/1.jpg",
-  "/images/3.jpg",
-  "/images/4.jpg",
-  "/images/5.jpg",
-  "/images/6.jpg",
-  "/images/7.png",
-  "/images/11.jpg",
-  "/images/8.jpg",
-  "/images/10.png",
-  "/images/9.jpg",
-  "/images/12.jpg",
-  "/images/13.jpg",
-  "/images/14.jpg",
-  "/images/15.png",
-  "/images/16.png",
-  "/images/17.png",
-  "/images/18.jpg",
-  "/images/19.jpg",
-  "/images/20.jpg",
-  "/images/21.jpg",
-  "/images/22.jpg",
-  "/images/23.jpg",
+  "/images/2.jpg", "/images/1.jpg", "/images/3.jpg",
+  "/images/4.jpg", "/images/5.jpg", "/images/6.jpg",
+  "/images/7.png", "/images/11.jpg", "/images/8.jpg",
+  "/images/10.png", "/images/9.jpg", "/images/12.jpg",
+  "/images/13.jpg", "/images/14.jpg", "/images/15.png",
+  "/images/16.png", "/images/17.png", "/images/18.jpg",
+  "/images/19.jpg", "/images/20.jpg", "/images/21.jpg",
+  "/images/22.jpg", "/images/23.jpg",
 ];
 
-const API_URL = process.env.REACT_APP_API_URL;
+const API_URL =
+  process.env.REACT_APP_API_URL || "http://localhost:4000"; // fallback for dev
 
 export default function App() {
   const [bgImage, setBgImage] = useState(images[0]);
@@ -38,7 +24,6 @@ export default function App() {
   const [message, setMessage] = useState("");
   const [showText, setShowText] = useState(false);
   const [typedText, setTypedText] = useState("");
-  const [isPlaying, setIsPlaying] = useState(false);
   const [feedback, setFeedback] = useState("");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [started, setStarted] = useState(false);
@@ -52,15 +37,11 @@ export default function App() {
   const musicRef = useRef(null);
 
   const text =
-    "🎁🎊Happy Birthday, princess💝 Wishing you endless joy and success!💐🌹🏵️";
+    "🎁🎊 Happy Birthday, princess 💝 Wishing you endless joy and success! 💐🌹🏵️";
 
   useEffect(() => {
-    const handleResize = () => {
-      setWindowSize(windowSize => ({
-        width: window.innerWidth,
-        height: window.innerHeight,
-      }));
-    };
+    const handleResize = () =>
+      setWindowSize({ width: window.innerWidth, height: window.innerHeight });
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -76,6 +57,7 @@ export default function App() {
   const startSurprise = () => {
     setShowConfetti(true);
     setTimeout(() => setShowConfetti(false), 5000);
+
     if (voiceRef.current) {
       voiceRef.current.play();
       voiceRef.current.onended = () => {
@@ -88,9 +70,11 @@ export default function App() {
             setShowConfetti(true);
             setTimeout(() => setShowConfetti(false), 5000);
             setShowText(true);
+
             if (musicRef.current) {
-              musicRef.current.play().catch((e) => console.log("Music play error", e));
-              setIsPlaying(true);
+              musicRef.current.play().catch((e) =>
+                console.log("Music play error", e)
+              );
             }
           }
         }, 100);
@@ -111,9 +95,7 @@ export default function App() {
     try {
       const res = await fetch(`${API_URL}/messages`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, message }),
       });
       if (res.ok) {
@@ -122,18 +104,16 @@ export default function App() {
         setName("");
         setMessage("");
         setFeedback("Thank you for celebrating my birthday with me! 💖");
-        setTimeout(() => setFeedback(""), 3000);
       } else {
-        console.error("Failed to send message");
         setFeedback("Oops, something went wrong! 😔");
-        setTimeout(() => setFeedback(""), 3000);
       }
+      setTimeout(() => setFeedback(""), 3000);
     } catch (err) {
       console.error("Error submitting message", err);
     }
   }
 
-  return (
+return (
   <div className="app" style={{ backgroundImage: `url(${bgImage})` }}>
 <Confetti
   width={windowSize.width}
